@@ -294,6 +294,5 @@ def main():
                 laser.state = "ready"  # Reset laser state
                 scoreboard.increment_score()  # Update score
 
-# Run the game
-main()
 window.mainloop()  # Keep the window open
+

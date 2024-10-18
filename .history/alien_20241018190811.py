@@ -143,157 +143,91 @@
 #         x = 280
 #     Mainchara.setx(x)
 
-# def fire_bullet():
-#     if  Laser_state == "ready":
-#         Laser_state = "fire"
-#         Laser.goto(Mainchara.xcor(), Mainchara.ycor() + 20)
-#         Laser.showturtle()
-#     return Laser
+# # def fire_bullet():
+# #     if  Laser_state == "ready":
+# #         Laser_state = "fire"
+# #         Laser.goto(Mainchara.xcor(), Mainchara.ycor() + 10)
+# #         Laser.showturtle()
+# #     return Laser
 
 # window.listen()
 # window.onkeypress(trai,'A')
 # window.onkeypress(phai,'D')
-# window.onkeypress(fire_bullet,'space')
-
-
-
-
-
+# # window.onkeypress(fire_bullet,'space')
 
 
 # window.mainloop()
-
-
-
-
-
-
-
 import turtle
 import random
 
-# Set up the window
 window = turtle.Screen()
-window.title('Robot Space Shooter')
+window.title('robot')
 window.bgcolor('black')
 window.setup(width=800, height=1000)
 
-# Scoreboard setup
-class Scoreboard:
-    def __init__(self):
-        self.score = 0
-        self.scoreboard = turtle.Turtle()
-        self.scoreboard.color("white")
-        self.scoreboard.penup()
-        self.scoreboard.hideturtle()
-        self.scoreboard.goto(0, 400)
-        self.update_score()
-
-    def update_score(self):
-        self.scoreboard.clear()
-        self.scoreboard.write(f"Score: {self.score}", align="center", font=("Courier", 24, "normal"))
-
-    def increment_score(self):
-        self.score += 10
-        self.update_score()
-
 # Main character setup
-class MainCharacter:
-    def __init__(self):
-        self.character = turtle.Turtle()
-        window.addshape(r'/Users/mac/Desktop/final-report/mainchara.gif')
-        self.character.shape(r'/Users/mac/Desktop/final-report/mainchara.gif')
-        self.character.penup()
-        self.character.goto(0, -400)
-
-    def move_left(self):
-        x = self.character.xcor()
-        x -= 20
-        if x < -380:
-            x = -380
-        self.character.setx(x)
-
-    def move_right(self):
-        x = self.character.xcor()
-        x += 20
-        if x > 380:
-            x = 380
-        self.character.setx(x)
+Mainchara = turtle.Turtle()
+window.addshape(r'/Users/mac/Desktop/final-report/mainchara.gif')
+Mainchara.shape(r'/Users/mac/Desktop/final-report/mainchara.gif')
+Mainchara.goto(0, -300)  # Use 0 instead of -0 for clarity
 
 # Laser setup
-class Laser:
-    def __init__(self):
-        self.laser = turtle.Turtle()
-        window.addshape(r'/Users/mac/Desktop/final-report/laser  .gif')
-        self.laser.shape(r'/Users/mac/Desktop/final-report/laser  .gif')
-        self.laser.penup()
-        self.laser.hideturtle()
-        self.state = 'ready'
-
-    def fire(self, x, y):
-        if self.state == "ready":
-            self.state = "fire"
-            self.laser.goto(x, y + 20)
-            self.laser.showturtle()
-
-    def move(self):
-        if self.state == "fire":
-            y = self.laser.ycor()
-            self.laser.sety(y + 20)
-            if y > 500:
-                self.laser.hideturtle()
-                self.state = "ready"
+Laser = turtle.Turtle()
+window.addshape(r'/Users/mac/Desktop/final-report/laser  .gif')
+Laser.shape(r'/Users/mac/Desktop/final-report/laser  .gif')
+Laser.goto(0, -210)  # Use 0 instead of -0 for clarity
+Laser.hideturtle()
+Laser_state = 'ready'
 
 # Alien setup
-class Alien:
-    def __init__(self):
-        self.alien = turtle.Turtle()
-        window.addshape(r'/Users/mac/Desktop/final-report/e1 .gif')
-        self.alien.shape(r'/Users/mac/Desktop/final-report/e1 .gif')
-        self.alien.penup()
-        self.reset_position()
+Aliens = []
+for _ in range(5):
+    Alien = turtle.Turtle()
+    window.addshape(r'/Users/mac/Desktop/final-report/e1 .gif')
+    Alien.shape(r'/Users/mac/Desktop/final-report/e1 .gif')
+    Alien.goto(random.randint(-290, 290), random.randint(100, 250))
+    Aliens.append(Alien)
 
-    def reset_position(self):
-        self.alien.goto(random.randint(-290, 290), random.randint(100, 400))
+# Movement functions
+def trai():
+    x = Mainchara.xcor()
+    x -= 20
+    if x < -280:
+        x = -280
+    Mainchara.setx(x)
 
-    def move(self):
-        y = self.alien.ycor()
-        y -= 2
-        self.alien.sety(y)
-        if y < -500:
-            self.reset_position()
+def phai():
+    x = Mainchara.xcor()
+    x += 20
+    if x > 280:  # Corrected from < to > for the right boundary
+        x = 280
+    Mainchara.setx(x)
 
-# Main game loop
-def main():
-    scoreboard = Scoreboard()
-    main_character = MainCharacter()
-    laser = Laser()
-    aliens = [Alien() for _ in range(5)]
+def fire_bullet(laser_state):
+    if laser_state == "ready":
+        laser_state = "fire"
+        Laser.goto(Mainchara.xcor(), Mainchara.ycor() + 10)
+        Laser.showturtle()
+    elif laser_state == "fire":
+        # Move the laser up
+        y = Laser.ycor()
+        Laser.sety(y + 10)
+        # Hide laser if it goes off the screen
+        if y > 400:  # Assuming the top of the window is 400
+            Laser.hideturtle()
+            laser_state = "ready"
+    return laser_state  # Return the updated state
 
-    # Key bindings
-    window.listen()
-    window.onkeypress(main_character.move_left, 'a')
-    window.onkeypress(main_character.move_right, 'd')
+# Key bindings
+window.listen()
+window.onkeypress(trai, 'A')
+window.onkeypress(phai, 'D')
 
-    def fire_bullet():
-        laser.fire(main_character.character.xcor(), main_character.character.ycor())
+# Main loop
+laser_state = 'ready'  # Initialize the laser state here
+while True:
+    window.update()  # Update the window
+    if window.onkeypress(lambda: fire_bullet(laser_state), 'space'):
+        laser_state = fire_bullet(laser_state)  # Update the state based on firing
 
-    window.onkeypress(fire_bullet, 'space')
-
-    # Game loop
-    while True:
-        window.update()
-        laser.move()  # Move the laser
-        for alien in aliens:
-            alien.move()  # Move the aliens
-
-            # Check for collisions
-            if laser.laser.distance(alien.alien) < 20 and laser.state == "fire":
-                alien.reset_position()  # Respawn alien
-                laser.laser.hideturtle()  # Hide laser
-                laser.state = "ready"  # Reset laser state
-                scoreboard.increment_score()  # Update score
-
-# Run the game
-main()
 window.mainloop()  # Keep the window open
