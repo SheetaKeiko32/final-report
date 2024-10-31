@@ -6,8 +6,8 @@ class Mainchara:
     def __init__(self):
         self.Mainchara = turtle.Turtle()
         self.Mainchara.speed(0)
-        window.addshape(r'/Users/mac/Desktop/final-report/mainchara.gif')
-        self.Mainchara.shape(r'/Users/mac/Desktop/final-report/mainchara.gif')
+        window.addshape(r'C:\Users\giakh\OneDrive\Documents\GitHub\final-report\mainchara.gif')
+        self.Mainchara.shape(r'C:\Users\giakh\OneDrive\Documents\GitHub\final-report\mainchara.gif')
         self.Mainchara.penup()
         self.Mainchara.goto(0, -300)
 
@@ -28,9 +28,9 @@ class Mainchara:
 class Laser:
     def __init__(self):
         self.Laser = turtle.Turtle()
-        window.addshape(r'/Users/mac/Desktop/final-report/laser  .gif')
+        window.addshape(r'C:\Users\giakh\OneDrive\Documents\GitHub\final-report\laser  .gif')
         self.Laser.speed(0)
-        self.Laser.shape(r'/Users/mac/Desktop/final-report/laser  .gif')
+        self.Laser.shape(r'C:\Users\giakh\OneDrive\Documents\GitHub\final-report\laser  .gif')
         self.Laser.penup()
         self.Laser.goto(0, -210)
         self.Laser.hideturtle()
@@ -50,20 +50,20 @@ class Laser:
 class Alien:
     def __init__(self):
         self.aliens = []
-        for _ in range(10):
+        for _ in range(5):
             alien = turtle.Turtle()
             alien.speed(0)
-            window.addshape(r'/Users/mac/Desktop/final-report/e2 .gif')
-            alien.shape(r'/Users/mac/Desktop/final-report/e2 .gif')
+            window.addshape(r'C:\Users\giakh\OneDrive\Documents\GitHub\final-report\e1 .gif')
+            alien.shape(r'C:\Users\giakh\OneDrive\Documents\GitHub\final-report\e1 .gif')
             alien.penup()
             alien.goto(random.randint(-300, 300), random.randint(100, 250))
             self.aliens.append(alien)
 
 window = turtle.Screen()
-window.bgpic(r'/Users/mac/Desktop/final-report/bg (2).gif')
+window.bgpic(r'C:\Users\giakh\OneDrive\Documents\GitHub\final-report\bg (2).gif')
 window.title('robot')
 window.bgcolor('black')
-window.setup(width=800, height=1000)
+window.setup(width=800, height=800)
 
 
 mainchara = Mainchara()
