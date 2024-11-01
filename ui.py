@@ -1,21 +1,32 @@
 from tkinter import *
 from tkinter import messagebox
 from PIL import Image, ImageTk
+import alien
 
 title = Tk()
 title.configure(bg="Black")
 title.title("MAIN MENU")
 title.geometry("600x600")
 
-image = Image.open(r"C:\Users\ASUS\Downloads\SPACE (2).jpg")
+image = Image.open(r"C:\Users\Admin\Desktop\final-report\Sapce.jpg")
 img = ImageTk.PhotoImage(image)
 lab = Label(title, image=img)
 lab.place(x=300, y=300, anchor="center")
 
+title.login_flag = False
+
+def play():
+    global login_flag
+    if title.login_flag:
+        alien.run_game()
+    else:
+        messagebox.showwarning("Failed", "Please login first.")
+
+
 def tit():
     Button(title, text="Sign up", command=signup, font=("Courier", 14, "bold")).place(x=300, y=300, anchor="center", height=50, width=200)
     Button(title, text="Log in", command=login, font=("Courier", 14, "bold")).place(x=300, y=400, anchor="center", height=50, width=200)
-    Button(title, text="Play", font=("Courier", 14, "bold")).place(x=300, y=500, anchor="center", height=50, width=200)
+    Button(title, text="Play", command=play, font=("Courier", 14, "bold")).place(x=300, y=500, anchor="center", height=50, width=200)
     Label(title, text="Space Shooters", font=("Retro 8-Bit", 32, "bold")).place(x=300, y=100, anchor="center", height=50, width=500)
 
 def signup():
@@ -28,7 +39,7 @@ def signup():
         nam = cbb3.get().strip()
         password = pas.get().strip()
         confirm = conf.get().strip()
-        filename = r"C:\Users\ASUS\OneDrive\Máy tính\Nordihydrocapsaicin\final-report\userlist.txt"
+        filename = r"C:\Users\Admin\Desktop\final-report\userlist.txt"
 
         if password == confirm and nam:
             with open(filename, "a") as f:
@@ -57,6 +68,7 @@ def signup():
     Signup.mainloop()
 
 def login():
+    global login_flag
     title.withdraw()
     Login = Toplevel()
     Login.geometry("600x600")
@@ -65,7 +77,7 @@ def login():
     def validate_login():
         nam = cbb3.get().strip()
         password = pas.get().strip()
-        filename = r"C:\Users\ASUS\OneDrive\Máy tính\Nordihydrocapsaicin\final-report\userlist.txt"
+        filename = r"C:\Users\Admin\Desktop\final-report\userlist.txt"
 
         try:
             with open(filename, "r") as f:
@@ -82,6 +94,7 @@ def login():
                     messagebox.showinfo("Success", "You successfully logged in to your account.")
                     title.wm_deiconify()
                     Login.withdraw()
+                    title.login_flag = True
                 else:
                     messagebox.showwarning("Failed", "Invalid username or password. Please try again.")
         except FileNotFoundError:
