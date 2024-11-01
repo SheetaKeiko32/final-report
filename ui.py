@@ -59,7 +59,7 @@ def signup():
 def login():
     title.withdraw()
     Login = Toplevel()
-    Login.geometry("600x600x600")
+    Login.geometry("600x600")
     Login.config(bg="Black")
 
     def validate_login():
