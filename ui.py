@@ -16,7 +16,7 @@ def tit():
     Button(title, text="Sign up", command=signup, font=("Courier", 14, "bold")).place(x=300, y=300, anchor="center", height=50, width=200)
     Button(title, text="Log in", command=login, font=("Courier", 14, "bold")).place(x=300, y=400, anchor="center", height=50, width=200)
     Button(title, text="Play", font=("Courier", 14, "bold")).place(x=300, y=500, anchor="center", height=50, width=200)
-    Label(title, text="Space Shooters", font=("Retro", 32, "bold")).place(x=300, y=100, anchor="center", height=50, width=500)
+    Label(title, text="Space Shooters", font=("Retro 8-Bit", 32, "bold")).place(x=300, y=100, anchor="center", height=50, width=500)
 
 def signup():
     title.withdraw()
@@ -59,7 +59,7 @@ def signup():
 def login():
     title.withdraw()
     Login = Toplevel()
-    Login.geometry("600x600")
+    Login.geometry("600x600x600")
     Login.config(bg="Black")
 
     def validate_login():
